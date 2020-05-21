@@ -1,0 +1,23 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: echo K8s Terraform Azure!
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var'
+    backendType: 'azurerm'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-backend-rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'terraformchandanazure'
+    backendAzureRmContainerName: 'storageaccounatchandan'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+  displayName: 'Run a multi-line script'
