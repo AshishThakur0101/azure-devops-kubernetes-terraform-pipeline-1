@@ -1,0 +1,27 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps: 
+- script: echo k8s Terraform Azure!
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'azure_rsa.pub'
+    name: publickey
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    backendType: 'azurerm'
+    backendServiceArm: 'Free Trial(f8ea8aa4-cc91-4e94-9f44-37fcb4a3c79b)'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-backend-rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'terraformchandanstorgae99'
+    backendAzureRmContainerName: 'terraformchandanstorgaecontainer'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+  displayName: 'Run a one-line script'
