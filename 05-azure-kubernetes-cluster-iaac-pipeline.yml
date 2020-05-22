@@ -25,3 +25,15 @@ steps:
     backendAzureRmContainerName: 'terraformchandanstorgaecontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
   displayName: 'Run a one-line script'
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-backend-rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'terraformchandanstorgae99'
+    backendAzureRmContainerName: 'terraformchandanstorgaecontainer'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+  displayName: 'Run a one-line script'
